@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Recensement</title>
+    <style>
+        /* CSS intégré */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            background-color: #0056b3;
+            color: #ffd700;
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .subtitle {
+            margin: 5px 0;
+        }
+
+        .form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #003d80;
+        }
+
+        .message {
+            color: green;
+            font-size: 0.9em;
+            margin-top: -8px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        // JavaScript interactif
+        document.addEventListener('DOMContentLoaded', () => {
+            // Messages interactifs
+            const addMessage = (inputId, messageId, text) => {
+                const input = document.getElementById(inputId);
+                const message = document.getElementById(messageId);
+                input.addEventListener('input', () => {
+                    if (input.value.trim() !== '') {
+                        message.textContent = text;
+                    } else {
+                        message.textContent = '';
+                    }
+                });
+            };
+
+            const addRadioMessage = (radioName, messageId, text) => {
+                const radios = document.getElementsByName(radioName);
+                const message = document.getElementById(messageId);
+                radios.forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        if (radio.checked && radio.value === 'Oui') {
+                            message.textContent = text;
+                        } else {
+                            message.textContent = '';
+                        }
+                    });
+                });
+            };
+
+            // Configuration des messages
+            addMessage('prenom', 'prenomMessage', 'Joli prénom 🤭');
+            addMessage('classe', 'classeMessage', 'Bravo !');
+            addMessage('antecedentsDetails', 'antecedentsMessage', "T’inquiètes pas on est là pour t’aider, tu fais partie de la famille maintenant");
+            addMessage('handicapDetails', 'handicapMessage', "Nous sommes là pour t’aider, si tu y mets du tiens ton handicap deviendra une force.");
+            addMessage('activites', 'activitesMessage', "Ah ouais très intéressant ! Nous y réfléchirons, ton avis sera pris en compte 😉");
+            addMessage('activiteDetails', 'activiteMessage', "Ah ! Voilà un jeune entrepreneur. Bonne idée ! Nous ferons de notre mieux pour t’accompagner.");
+            addRadioMessage('vivre_seul', 'vivreSeulMessage', 'Ah un jeune indépendant, du courage !');
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Formulaire de Recensement</h1>
+            <h2 class="subtitle">COMITÉ POUR L’ÉPANOUISSEMENT ACADÉMIQUE</h2>
+            <h3 class="subtitle">BUREAU DES ÉTUDIANTS IITG</h3>
+            <h4 class="subtitle">Bureau communication et événementiel</h4>
+            <h4 class="subtitle">BEBONA Fanel & EDOU BIBANG Brunel</h4>
+        </header>
+        <form action="https://formspree.io/f/mrbgvqpk" method="POST" class="form">
+            <!-- Informations de l'étudiant -->
+            <section>
+                <h2>INFORMATIONS DE L’ÉTUDIANT</h2>
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom" required>
+
+                <label for="prenom">Prénom :</label>
+                <input type="text" id="prenom" name="prenom" required>
+                <p id="prenomMessage" class="message"></p>
+
+                <label for="naissance">Date et lieu de naissance :</label>
+                <input type="text" id="naissance" name="naissance" required>
+
+                <label for="nationalite">Nationalité :</label>
+                <input type="text" id="nationalite" name="nationalite" required>
+
+                <label>Boursier :</label>
+                <label><input type="radio" name="boursier" value="Oui" required> Oui</label>
+                <label><input type="radio" name="boursier" value="Non" required> Non</label>
+
+                <label for="classe">Classe :</label>
+                <select id="classe" name="classe" required>
+                    <option value="" disabled selected>Choisir</option>
+                    <option value="Licence 1">Licence 1</option>
+                    <option value="prépa 1">Prépa 1</option>
+                    <option value="prépa 2">Prépa 2</option>
+                    <option value="Licence 2">Licence 2</option>
+                    <option value="Licence 3">Licence 3</option>
+                    <option value="Master 1">Master 1</option>
+                    <option value="Master 2">Master 2</option>
+                </select>
+                <p id="classeMessage" class="message"></p>
+
+                <label>Vivez-vous seul ?</label>
+                <label><input type="radio" name="vivre_seul" value="Oui" required> Oui</label>
+                <label><input type="radio" name="vivre_seul" value="Non" required> Non</label>
+                <p id="vivreSeulMessage" class="message"></p>
+
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Numéro de téléphone :</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="adresse">Adresse :</label>
+                <input type="text" id="adresse" name="adresse" required>
+            </section>
+
+            <!-- Informations tuteurs -->
+            <section>
+                <h2>INFORMATIONS TUTEURS</h2>
+                <label for="nom_tuteur">Nom :</label>
+                <input type="text" id="nom_tuteur" name="nom_tuteur" required>
+
+                <label for="prenom_tuteur">Prénom :</label>
+                <input type="text" id="prenom_tuteur" name="prenom_tuteur" required>
+
+                <label for="metier">Métier :</label>
+                <input type="text" id="metier" name="metier" required>
+
+                <label for="email_tuteur">Email :</label>
+                <input type="email" id="email_tuteur" name="email_tuteur" required>
+
+                <label for="adresse_tuteur">Adresse :</label>
+                <input type="text" id="adresse_tuteur" name="adresse_tuteur" required>
+
+                <label for="phone_tuteur">Téléphone :</label>
+                <input type="tel" id="phone_tuteur" name="phone_tuteur" required>
+            </section>
+
+            <!-- Informations supplémentaires -->
+            <section>
+                <h2>INFORMATIONS SUPPLÉMENTAIRES</h2>
+                <label>Avez-vous des antécédents médicaux importants ?</label>
+                <label><input type="radio" name="antecedents" value="Oui" required> Oui</label>
+                <label><input type="radio" name="antecedents" value="Non" required> Non</label>
+                <input type="text" id="antecedentsDetails" name="antecedentsDetails" placeholder="Précisez si oui">
+                <p id="antecedentsMessage" class="message"></p>
+
+                <label>Avez-vous un handicap ?</label>
+                <label><input type="radio" name="handicap" value="Oui" required> Oui</label>
+                <label><input type="radio" name="handicap" value="Non" required> Non</label>
+                <input type="text" id="handicapDetails" name="handicapDetails" placeholder="Précisez si oui">
+                <p id="handicapMessage" class="message"></p>
+
+                <label>Quelles activités souhaiteriez-vous voir organiser par le Bureau des étudiants ?</label>
+                <textarea id="activites" name="activites"></textarea>
+                <p id="activitesMessage" class="message"></p>
+
+                <label>Exercez-vous une activité génératrice de revenu(commerciale) ?</label>
+                <label><input type="radio" name="activite_commerciale" value="Oui" required> Oui</label>
+                <label><input type="radio" name="activite_commerciale" value="Non" required> Non</label>
+                <textarea id="activiteDetails" name="activiteDetails" placeholder="Précisez si oui"></textarea>
+                <p id="activiteMessage" class="message"></p>
+            </section>
+
+            <!-- Bouton soumettre -->
+            <button type="submit">Soumettre</button>
+        </form>
+    </div>
+</body>
+</html>
